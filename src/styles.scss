@@ -1,1 +1,72 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+$success: #050646;
+$danger: #f53659;
+$secondary : #fe951c;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.cursor-pointer:hover {
+    cursor:pointer;
+}
+
+.fv-help-block {
+    font-size: 10px;
+    color: #f53659;
+}
+
+.background-primary {
+    background-color: $success !important;
+}
+
+.background-secondary {
+    background-color: $secondary !important;
+}
+
+.color-primary {
+    color: $success !important;
+}
+
+.color-secondary {
+    color: $secondary !important;
+}
+
+.input-default-size {
+    font-size: 14px;
+}
+
+.is-invalid {
+    border: 1px solid $danger;
+    transition: .3s;
+}
+
+.is-valid {
+    border: 1px solid $success;
+    transition: .3s;
+}
+
+.alert-success {
+    padding: 20px !important;
+    background-color: $success!important;
+    color: white !important;
+  }
+
+.alert-warning {
+    padding: 20px !important;
+    background-color: #f89406 !important;
+    color: white !important;
+  }
+  
+  .alert-info {
+    padding: 20px !important;
+    background-color: #2f96b4 !important;
+    color: white !important;
+  }
+  
+  .alert-error {
+    padding: 20px !important;
+    background-color: $danger !important;
+    color: white !important;
+  }

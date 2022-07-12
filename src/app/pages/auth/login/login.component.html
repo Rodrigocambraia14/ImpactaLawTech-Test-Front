@@ -1,0 +1,181 @@
+<div class="w-100 h-100 d-flex justify-content-center align-items-center background">
+    <!--begin::Form-->
+    <form
+      class="form shadow px-5 rounded "
+      style="width: 500px; height: 600px;"
+      [formGroup]="loginForm"
+      novalidate="novalidate"
+      (ngSubmit)="submit()"
+    >
+    <div class="w-100 d-flex justify-content-center">
+        <img
+          alt="Logo"
+          src="https://i.imgur.com/uApoCsJ.png"
+          width="250px"
+          height="250px"
+          class="h-70px me-15 mt-15 mb-10 justify-content-start"
+      />
+    </div>
+      <!--begin::Heading-->
+      <div class="text-left mb-15">
+        <h1 class="text-gray-700 mb-3 fs-5">Seja bem-vindo(a) !</h1>
+      </div>
+      <!--end::Heading-->
+  
+      <!--begin::Form group-->
+      <div class="fv-row mb-10">
+        <label class="form-label fs-8 text-dark">Usuário</label>
+        <input
+          type="text"
+          class="form-control form-control-lg form-control-solid input-default-size"
+          formControlName="username"
+          placeholder="Usuário"
+          autocomplete="off"
+          [ngClass]="{
+            'is-invalid': loginForm.controls['username'].invalid && submitted,
+            'is-valid': loginForm.controls['username'].valid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)
+          }"
+        />
+          <ng-container
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'Usuário é obrigatório',
+              control: loginForm.controls['username']
+            }"
+          ></ng-container>
+          <ng-container
+            *ngIf="!loginForm.controls['username'].hasError('required')"
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'minlength',
+              message: 'Usuário deve conter no mínimo 3 caracteres',
+              control: loginForm.controls['username']
+            }"
+          ></ng-container>
+          <ng-container
+            *ngIf="!loginForm.controls['username'].hasError('required') && loginForm.controls['username'].hasError('maxLength') "
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'maxlength',
+              message: 'Usuário deve conter no máximo 50 caracteres',
+              control: loginForm.controls['username']
+            }"
+          ></ng-container> 
+          <ng-container
+            *ngIf="!loginForm.controls['username'].hasError('minlength') "
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'username',
+              message: 'Usuário inválido',
+              control: loginForm.controls['username']
+            }"
+          ></ng-container>
+      </div>
+      
+      <div class="fv-row mb-10 mt-2">
+        <label class="form-label fs-8 text-dark">Senha</label>
+        <input
+          type="password"
+          class="form-control form-control-lg form-control-solid  input-default-size"
+          formControlName="password"
+          placeholder="Senha"
+          autocomplete="off"
+          [ngClass]="{
+            'is-invalid': loginForm.controls['password'].invalid  && submitted,
+            'is-valid': loginForm.controls['password'].valid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)
+          }"
+        />
+        <ng-container
+            *ngIf="submitted"
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'required',
+            message: 'Senha é obrigatória',
+            control: loginForm.controls['password']
+          }"
+        ></ng-container>
+        <ng-container
+          *ngIf="!loginForm.controls['password'].hasError('required') && 
+                  !loginForm.controls['password'].hasError('pattern') "
+          [ngTemplateOutlet]="formError"
+          [ngTemplateOutletContext]="{
+            validation: 'minlength',
+            message: 'Senha deve conter no mínimo 8 caracteres',
+            control: loginForm.controls['password']
+          }"
+        ></ng-container>
+        <ng-container
+          *ngIf="!loginForm.controls['password'].hasError('required') && 
+                  !loginForm.controls['password'].hasError('pattern') "
+          [ngTemplateOutlet]="formError"
+          [ngTemplateOutletContext]="{
+            validation: 'maxlength',
+            message: 'Senha deve conter no máximo 12 caracteres',
+            control: loginForm.controls['password']
+          }"
+        ></ng-container> 
+        <ng-container
+          *ngIf="submitted"
+          [ngTemplateOutlet]="formError"
+          [ngTemplateOutletContext]="{
+            validation: 'pattern',
+            message: 'Senha deve conter letras e números',
+            control: loginForm.controls['password']
+          }"
+        ></ng-container>
+      </div>
+  
+      <div class="d-flex justify-content-end left-content-between mt-n ">
+        <div class="d-flex flex-stack mb-5 mt-2 flex-column align-items-start">
+          <a
+            routerLink="/auth/forgot-password"
+            class="color-primary fs-6 text-decoration-none"
+          >
+            Recuperar senha
+          </a>
+          <a
+            routerLink="/auth/register"
+            class="color-primary fs-6 text-decoration-none"
+          >
+            Cadastrar-se
+          </a>
+        </div>
+      </div>
+      <div class="text-center">
+        <button
+          type="submit"
+          class="btn btn-lg background-primary text-light w-100 "
+        >
+          <ng-container *ngIf="isLoading$ | async">
+            <span class="indicator-progress" [style.display]="'block'">
+              Por favor, aguarde...
+              <span
+                class="spinner-border spinner-border-sm align-middle ms-2"
+              ></span>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!(isLoading$ | async)">
+            <span class="indicator-label">Login</span>
+          </ng-container>
+        </button>
+      </div>
+    </form>
+  </div>
+  <ng-template
+    #formError
+    let-control="control"
+    let-message="message"
+    let-validation="validation"
+  >
+    <ng-container
+      *ngIf="control.hasError(validation) && submitted"
+    >
+      <div class="fv-plugins-message-container">
+        <div class="fv-help-block">
+          <span role="alert">{{ message }}</span>
+        </div>
+      </div>
+    </ng-container>
+  </ng-template>
+  
