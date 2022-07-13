@@ -29,12 +29,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: $secondary !important;
 }
 
+.background-back {
+    color: $success;
+    background-color: white;
+}
+
 .color-primary {
     color: $success !important;
 }
 
 .color-secondary {
     color: $secondary !important;
+}
+
+.color-danger {
+    color: $danger!important;
 }
 
 .input-default-size {
@@ -73,4 +82,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     padding: 20px !important;
     background-color: $danger !important;
     color: white !important;
+  }
+
+  .default-panel {
+    min-width: 60px !important;
+    max-width: 60px !important;
+    .mat-menu-item .mat-menu-ripple {
+        position: unset !important;
+    }
   }

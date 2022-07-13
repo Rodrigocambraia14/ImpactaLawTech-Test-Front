@@ -9,7 +9,7 @@ import { ApiService } from './api.service';
 @Injectable({
   providedIn: 'root',
 })
-export class TasksService extends ApiService{
+export class UserService extends ApiService{
   isLoading$: Observable<boolean>;
   isLoadingSubject: BehaviorSubject<boolean>;
 
@@ -19,10 +19,10 @@ export class TasksService extends ApiService{
     this.isLoading$ = this.isLoadingSubject.asObservable();
   }
  
-  list(userId: any): Observable<any> {
+  list(): Observable<any> {
     this.isLoadingSubject.next(true);
     return this.http.get<any>(
-      `${environment.apiUrl}/task/list?UserId=${userId}`,
+      `${environment.apiUrl}/user/list`,
       ).pipe(
         map((create: any) => {
           return create;
@@ -37,7 +37,7 @@ export class TasksService extends ApiService{
 
   delete(id: any): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.http.put<any>(`${environment.apiUrl}/task/delete`, {
+    return this.http.put<any>(`${environment.apiUrl}/user/delete`, {
       Id: id,
     }).pipe(
       map((create: any) => {
@@ -53,7 +53,7 @@ export class TasksService extends ApiService{
 
   create(body: any): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.http.post<any>(`${environment.apiUrl}/task/create`, {
+    return this.http.post<any>(`${environment.apiUrl}/user/create`, {
       Name: body.name,
       Description: body.description,
       Priority: body.priority,
@@ -72,7 +72,7 @@ export class TasksService extends ApiService{
 
   update(body: any): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.http.put<any>(`${environment.apiUrl}/task/update`, {
+    return this.http.put<any>(`${environment.apiUrl}/user/update`, {
       Id: body.id,
       Name: body.name,
       Description: body.description,

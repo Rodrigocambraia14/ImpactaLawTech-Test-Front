@@ -34,6 +34,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CreateTaskDialogComponent } from './tasks/create-task-dialog/create-task-dialog.component';
 import { EditTaskDialogComponent } from './tasks/edit-task-dialog/edit-task-dialog.component';
+import { DeleteTaskDialogComponent } from './tasks/delete-task-dialog/delete-task-dialog.component';
+import { UsersComponent } from './users/users.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { EditTaskDialogComponent } from './tasks/edit-task-dialog/edit-task-dial
     HomePage,
     TasksComponent,
     CreateTaskDialogComponent,
-    EditTaskDialogComponent
+    EditTaskDialogComponent,
+    DeleteTaskDialogComponent,
+    UsersComponent
   ],
   imports: [
     CommonModule,
