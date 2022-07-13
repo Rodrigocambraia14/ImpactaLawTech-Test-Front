@@ -43,7 +43,7 @@ import { AppState } from '../store/app.states';
   
       request = request.clone({
         setHeaders: {
-          'Authorization': `Bearer ${this.token}`,
+          'Token': `Bearer ${this.token}`,
           'Content-Type': 'application/json',
         },
       });

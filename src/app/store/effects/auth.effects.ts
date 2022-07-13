@@ -46,8 +46,6 @@ export class AuthEffects {
     ofType(AuthActionTypes.LOGIN_FORCE),
     map((action: Login) => action.payload),
     switchMap((payload) => {
-      let forceLogin = true;
-      let device = navigator.userAgent;
       return this.authService.login(payload.username, payload.password).pipe(
         map((res) => {
           if (res.valid) {
@@ -64,24 +62,19 @@ export class AuthEffects {
       );
     })
   ));
-
   
   logInValide$: Observable<any> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.LOGIN_INVALID),
     tap((payload) => {
     })
   ), { dispatch: false });
-
   
   login$: Observable<any> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.LOGIN),
     map((action: Login) => action.payload),
     switchMap((payload) => {
-
-      let device = navigator.userAgent;
       this.username = payload.username;
       this.password = payload.password;
-      let forceLogin = false;
       return this.authService.login(payload.username, payload.password).pipe(
         map((res) => {
           if (res.valid) {

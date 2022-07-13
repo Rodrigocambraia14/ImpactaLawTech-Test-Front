@@ -18,6 +18,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthGuardService } from './services/auth-guard.service';
 import { ToastService } from './services/toast.service';
 import { HttpRequestInterceptor } from './interceptors/http-request.interceptor';
+import { MenuModule } from './pages/menu/menu.module';
+import { RouteReuseStrategy } from '@angular/router';
+import { HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [

@@ -6,8 +6,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-  public apiURL: string;
-  constructor(public httpClient: HttpClient) {
+  protected apiURL: string;
+  constructor(protected httpClient: HttpClient) {
     this.apiURL = environment.apiUrl;
   }
 }

@@ -1,0 +1,7 @@
+.button-hover:hover {
+    transform: scale(1.2);
+    transition: .2s;
+}
+
+.tooltip-arrow,
+.button-hover + .tooltip > .tooltip-inner {background-color: #050646; color: white;}

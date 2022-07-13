@@ -51,7 +51,7 @@ export class AuthenticationService {
   login(username: any, password: any) {
     this.isLoadingSubject!.next(true);
     return this.http.post<any>(
-      `${environment.apiUrl}/api/user/login`,
+      `${environment.apiUrl}/user/login`,
       { username, password})
       .pipe(
         map((auth: any) => {
@@ -77,7 +77,7 @@ export class AuthenticationService {
   Register(request: any): Observable<any> {
     this.isLoadingSubject!.next(true);
     return this.http.post<any>(
-      `${environment.apiUrl}/api/user/register`,
+      `${environment.apiUrl}/user/register`,
       request
     )
     .pipe(
@@ -94,28 +94,28 @@ export class AuthenticationService {
 
   requestPassword(request: any): Observable<any> {
     return this.http.post<any>(
-      `${environment.apiUrl}/api/Authentication/reset-password`,
+      `${environment.apiUrl}/Authentication/reset-password`,
        request
     );
   }
 
   recoverPassword(request: any): Observable<any> {
     return this.http.post<any>(
-      `${environment.apiUrl}/api/Authentication/recover-password`,
+      `${environment.apiUrl}/Authentication/recover-password`,
        request
     );
   }
 
   validateToken(request: any): Observable<any> {
     return this.http.post<any>(
-      `${environment.apiUrl}/api/Authentication/validateToken`,
+      `${environment.apiUrl}/Authentication/validateToken`,
        request
     );
   }
 
   changePassword(request: any): Observable<any> {
     return this.http.post<any>(
-      `${environment.apiUrl}/api/Authentication/changePassword`,
+      `${environment.apiUrl}/Authentication/changePassword`,
        request
     );
   }

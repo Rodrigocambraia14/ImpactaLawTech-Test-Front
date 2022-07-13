@@ -1,0 +1,147 @@
+<form
+      class=" h-100 px-5 rounded "
+      [formGroup]="registerForm"
+      novalidate="novalidate"
+      (ngSubmit)="submit()"
+    >
+    <div class="w-100 d-flex justify-content-end">
+    </div>
+      <!--begin::Heading-->
+      <div class="text-left mb-15">
+        <h1 class="text-gray-700 mb-3 fs-5">Nova tarefa</h1>
+      </div>
+      <!--end::Heading-->
+  
+      <!--begin::Form group-->
+      <div class="fv-row mb-10">
+        <label class="form-label fs-8 text-dark">Nome</label>
+        <input
+          type="text"
+          class="form-control form-control-lg form-control-solid input-default-size"
+          formControlName="name"
+          placeholder="Nome"
+          autocomplete="off"
+          [ngClass]="{
+            'is-invalid': registerForm.controls['name'].invalid && submitted,
+            'is-valid': registerForm.controls['name'].valid && (registerForm.controls['name'].dirty || registerForm.controls['name'].touched)
+          }"
+        />
+          <ng-container
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'Nome é obrigatório',
+              control: registerForm.controls['name']
+            }"
+          ></ng-container>
+          <ng-container
+            *ngIf="!registerForm.controls['name'].hasError('required')"
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'minlength',
+              message: 'Nome deve conter no mínimo 3 caracteres',
+              control: registerForm.controls['name']
+            }"
+          ></ng-container>
+          <ng-container
+            *ngIf="!registerForm.controls['name'].hasError('required') && registerForm.controls['name'].hasError('maxLength') "
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'maxlength',
+              message: 'Nome deve conter no máximo 100 caracteres',
+              control: registerForm.controls['name']
+            }"
+          ></ng-container> 
+          <ng-container
+            *ngIf="!registerForm.controls['name'].hasError('minlength') "
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'name',
+              message: 'Nome inválido',
+              control: registerForm.controls['name']
+            }"
+          ></ng-container>
+      </div>
+
+      <div class="fv-row ">
+        <label class="form-label fs-8 text-dark mt-2">Descrição</label>
+        <input
+          type="text"
+          class="form-control form-control-lg form-control-solid input-default-size"
+          formControlName="description"
+          placeholder="Descrição da tarefa"
+          autocomplete="on"
+          [ngClass]="{
+            'is-invalid': registerForm.controls['description'].invalid && submitted,
+            'is-valid': registerForm.controls['description'].valid && (registerForm.controls['description'].dirty || registerForm.controls['description'].touched)
+          }"
+        />
+          
+          <ng-container
+            *ngIf="!registerForm.controls['description'].hasError('required') && registerForm.controls['description'].hasError('maxLength') "
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'maxlength',
+              message: 'Descrição deve conter no máximo 200 caracteres',
+              control: registerForm.controls['description']
+            }"
+          ></ng-container> 
+      </div>
+
+      <div class="fv-row mb-10 mt-10">
+        <label class="form-label fs-8 text-dark mt-2">Prioridade</label>
+        <select
+            aria-label="Floating label select example"
+            class="form-select form-control form-control-lg form-control-solid"
+            aria-label="Select example"
+            formControlName="priority"
+                >
+                  <option  value="1">Alta</option>
+                  <option  value="2">Média</option>
+                  <option  value="3">Baixa</option>
+        </select>
+          <ng-container
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'Uma prioridade é obrigatória',
+              control: registerForm.controls['priority']
+            }"
+          ></ng-container>
+      </div>
+      
+      <div class="text-center">
+        <button
+          type="submit"
+          class="btn btn-lg background-primary text-light w-100 mt-5"
+        >
+          <ng-container *ngIf="isLoading$ | async">
+            <span class="indicator-progress" [style.display]="'block'">
+              Por favor, aguarde...
+              <span
+                class="spinner-border spinner-border-sm align-middle ms-2"
+              ></span>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!(isLoading$ | async)">
+            <span class="indicator-label">Cadastrar</span>
+          </ng-container>
+        </button>
+      </div>
+    </form>
+    <ng-template
+    #formError
+    let-control="control"
+    let-message="message"
+    let-validation="validation"
+  >
+    <ng-container
+      *ngIf="control.hasError(validation) && submitted"
+    >
+      <div class="fv-plugins-message-container">
+        <div class="fv-help-block">
+          <span role="alert">{{ message }}</span>
+        </div>
+      </div>
+    </ng-container>
+  </ng-template>

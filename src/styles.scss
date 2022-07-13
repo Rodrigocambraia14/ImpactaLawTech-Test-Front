@@ -17,6 +17,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: #f53659;
 }
 
+.default-loader circle{
+    stroke: $success !important;
+  }
+
 .background-primary {
     background-color: $success !important;
 }

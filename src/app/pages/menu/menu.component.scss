@@ -24,3 +24,26 @@ mat-sidenav-container {
     transform: scale(1.2);
     transition: .3s;
 }
+
+.toolbar-font-size {
+    font-size: 10px;
+}
+
+.image-container {
+    width: 100px;
+    height: 100px;
+
+    img {
+        border-radius: 100px;
+        width: 100px;
+        height: 100px;
+    }
+}
+
+mat-sidenav-container {
+    position: absolute;
+    z-index: 99;
+}
+.mat-drawer-container {
+    overflow: unset !important;
+}
