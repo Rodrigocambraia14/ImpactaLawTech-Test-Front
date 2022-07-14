@@ -1,0 +1,43 @@
+<div
+      class=" h-100 px-5 rounded "
+    >
+    <div class="w-100 d-flex justify-content-end">
+    </div>
+      <!--begin::Heading-->
+      <div class="text-left mb-15">
+        <h1 class="color-primary mb-3 fs-5 text-center">Excluir usuário - {{ data.userName }}</h1>
+      </div>
+      <!--end::Heading-->
+  
+          <div class="d-flex flex-column">
+
+            <div class="w-100 icon-container d-flex justify-content-center align-items-center">
+                <mat-icon class="text-black-50">info</mat-icon>
+            </div>
+
+            <span class="text-black-50 text-center"> Esta ação não poderá ser desfeita !</span>
+          </div>
+      
+      <div class="w-100 text-center d-flex justify-content-center flex-column">
+        <button
+          (click)="submit()"
+          class="btn btn-lg background-primary w-100 text-light mt-5"
+        >
+          <ng-container *ngIf="isLoading$ | async">
+            <span class="indicator-progress" [style.display]="'block'">
+              Por favor, aguarde...
+              <span
+                class="spinner-border spinner-border-sm align-middle ms-2"
+              ></span>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!(isLoading$ | async)">
+            <span class="indicator-label">Confirmar</span>
+          </ng-container>
+        </button>
+        <button class="btn btn-lg background-back w-100"
+                (click)="close()">
+            Voltar
+        </button>
+      </div>
+    </div>

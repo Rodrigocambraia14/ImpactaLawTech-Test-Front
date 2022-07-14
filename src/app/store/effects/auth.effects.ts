@@ -53,7 +53,7 @@ export class AuthEffects {
               user: res.data,
             });
           } else {
-            return new LoginFailure({ error: res.message });
+            return new LoginFailure({ error: res.data.errors });
           }
         }),
         catchError((res) => {
@@ -85,7 +85,7 @@ export class AuthEffects {
             if (res.valid == false && res.data == false) {
               return new LoginInvalid({username: payload.username, password: payload.password})
             } else {
-              return new LoginFailure({ error: res.data.erros });
+              return new LoginFailure({ error: res.data.errors });
             }
           }
         }),
@@ -120,7 +120,6 @@ export class AuthEffects {
   logout$: Observable<any> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.LOGOUT),
     tap((user) => {
-        debugger;
       localStorage.removeItem('token');
       window.location.reload()
       this.router.navigateByUrl('/auth/login');

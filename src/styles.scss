@@ -91,3 +91,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         position: unset !important;
     }
   }
+
+  .card {
+    margin: 20px;
+    padding: 20px;
+    border: none;
+    border-radius: 15px;  
+    background-color: #f7f7f7 !important;
+
+    .card-body, .card-header {
+        background-color: #f7f7f7 !important;
+    }
+  }
+
+  .mat-elevation-z8 {
+    background-color: white;
+  }

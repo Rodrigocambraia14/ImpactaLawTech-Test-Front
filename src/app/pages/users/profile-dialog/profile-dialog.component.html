@@ -1,0 +1,157 @@
+<form
+      class=" h-100 px-5 rounded "
+      [formGroup]="registerForm"
+      novalidate="novalidate"
+      (ngSubmit)="submit()"
+    >
+    <div class="w-100 d-flex justify-content-end">
+    </div>
+      <!--begin::Heading-->
+      <div class="text-left mb-15">
+        <h1 class="text-gray-700 mb-3 fs-5 text-center">Alterar senha</h1>
+      </div>
+      <!--end::Heading-->
+  
+      <!--begin::Form group-->
+      
+      <div class="fv-row mb-10 mt-2">
+        <label class="form-label fs-8 text-dark">Senha atual</label>
+        <input
+          type="password"
+          class="form-control form-control-lg form-control-solid  input-default-size"
+          formControlName="password"
+          placeholder="Senha"
+          autocomplete="off"
+          [ngClass]="{
+            'is-invalid': registerForm.controls['password'].invalid  && submitted,
+            'is-valid': registerForm.controls['password'].valid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)
+          }"
+        />
+        <ng-container
+            *ngIf="submitted"
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'required',
+            message: 'Senha é obrigatória',
+            control: registerForm.controls['password']
+          }"
+        ></ng-container>
+        <ng-container
+          *ngIf="!registerForm.controls['password'].hasError('required') && 
+                  !registerForm.controls['password'].hasError('pattern') "
+          [ngTemplateOutlet]="formError"
+          [ngTemplateOutletContext]="{
+            validation: 'minlength',
+            message: 'Senha deve conter no mínimo 8 caracteres',
+            control: registerForm.controls['password']
+          }"
+        ></ng-container>
+        <ng-container
+          *ngIf="!registerForm.controls['password'].hasError('required') && 
+                  !registerForm.controls['password'].hasError('pattern') "
+          [ngTemplateOutlet]="formError"
+          [ngTemplateOutletContext]="{
+            validation: 'maxlength',
+            message: 'Senha deve conter no máximo 12 caracteres',
+            control: registerForm.controls['password']
+          }"
+        ></ng-container> 
+        <ng-container
+          *ngIf="submitted"
+          [ngTemplateOutlet]="formError"
+          [ngTemplateOutletContext]="{
+            validation: 'pattern',
+            message: 'Senha deve conter letras e números',
+            control: registerForm.controls['password']
+          }"
+        ></ng-container>
+      </div>
+
+      <div class="fv-row mb-10 mt-2">
+        <label class="form-label fs-8 text-dark">Nova senha</label>
+        <input
+          type="password"
+          class="form-control form-control-lg form-control-solid  input-default-size"
+          formControlName="newPassword"
+          placeholder="Senha"
+          autocomplete="off"
+          [ngClass]="{
+            'is-invalid': registerForm.controls['newPassword'].invalid  && submitted,
+            'is-valid': registerForm.controls['newPassword'].valid && (registerForm.controls['newPassword'].dirty || registerForm.controls['newPassword'].touched)
+          }"
+        />
+        <ng-container
+            *ngIf="submitted"
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'required',
+            message: 'Senha é obrigatória',
+            control: registerForm.controls['newPassword']
+          }"
+        ></ng-container>
+        <ng-container
+          *ngIf="!registerForm.controls['newPassword'].hasError('required') && 
+                  !registerForm.controls['newPassword'].hasError('pattern') "
+          [ngTemplateOutlet]="formError"
+          [ngTemplateOutletContext]="{
+            validation: 'minlength',
+            message: 'Senha deve conter no mínimo 8 caracteres',
+            control: registerForm.controls['newPassword']
+          }"
+        ></ng-container>
+        <ng-container
+          *ngIf="!registerForm.controls['newPassword'].hasError('required') && 
+                  !registerForm.controls['newPassword'].hasError('pattern') "
+          [ngTemplateOutlet]="formError"
+          [ngTemplateOutletContext]="{
+            validation: 'maxlength',
+            message: 'Senha deve conter no máximo 12 caracteres',
+            control: registerForm.controls['newPassword']
+          }"
+        ></ng-container> 
+        <ng-container
+          *ngIf="submitted"
+          [ngTemplateOutlet]="formError"
+          [ngTemplateOutletContext]="{
+            validation: 'pattern',
+            message: 'Senha deve conter letras e números',
+            control: registerForm.controls['newPassword']
+          }"
+        ></ng-container>
+      </div>
+      
+      <div class="text-center">
+        <button
+          type="submit"
+          class="btn btn-lg background-primary text-light w-100 mt-5"
+        >
+          <ng-container *ngIf="isLoading$ | async">
+            <span class="indicator-progress" [style.display]="'block'">
+              Por favor, aguarde...
+              <span
+                class="spinner-border spinner-border-sm align-middle ms-2"
+              ></span>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!(isLoading$ | async)">
+            <span class="indicator-label">Atualizar</span>
+          </ng-container>
+        </button>
+      </div>
+    </form>
+    <ng-template
+    #formError
+    let-control="control"
+    let-message="message"
+    let-validation="validation"
+  >
+    <ng-container
+      *ngIf="control.hasError(validation) && submitted"
+    >
+      <div class="fv-plugins-message-container">
+        <div class="fv-help-block">
+          <span role="alert">{{ message }}</span>
+        </div>
+      </div>
+    </ng-container>
+  </ng-template>

@@ -106,7 +106,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       if(res.valid)
         return this.toastService.success(res.message);
       else {
-        return this.toastService.error(res.message);
+        return this.toastService.error(res.data.errors);
       }
     })
     

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -11,14 +11,15 @@ import { AppState } from 'src/app/store/app.states';
 import { Login } from 'src/app/store/actions/auth.actions';
 import { ToastService } from 'src/app/services/toast.service';
 import { TasksService } from 'src/app/services/tasks.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-create-task-dialog',
-  templateUrl: './create-task-dialog.component.html',
-  styleUrls: ['./create-task-dialog.component.scss'],
+  selector: 'app-profile-dialog',
+  templateUrl: './profile-dialog.component.html',
+  styleUrls: ['./profile-dialog.component.scss'],
 })
-export class CreateTaskDialogComponent implements OnInit, OnDestroy {
+export class ProfileDialogComponent implements OnInit, OnDestroy {
   registerForm: FormGroup | any;
   returnUrl: string | any;
   isLoading$: Observable<boolean>;
@@ -27,15 +28,17 @@ export class CreateTaskDialogComponent implements OnInit, OnDestroy {
   submitted: boolean = false;
   registerFormFilled: any;
   userId: any;
+  user: any;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,  
     private fb: FormBuilder,
-    private tasksService: TasksService,
+    private userService: UserService,
     private toastService: ToastService,
     private storeService: StoreService,
-    public dialogRef: MatDialogRef<CreateTaskDialogComponent>,
+    public dialogRef: MatDialogRef<ProfileDialogComponent>,
   ) {
-    this.isLoading$ = this.tasksService.isLoading$!;
+    this.isLoading$ = this.userService.isLoading$!;
   }
 
   ngOnInit(): void {
@@ -50,30 +53,28 @@ export class CreateTaskDialogComponent implements OnInit, OnDestroy {
   getAuth()
   {
     this.storeService.getAuth().subscribe((auth) => {
-      this.userId = auth.user.Id;
+      this.user = auth.user;
     });
   }
 
   initForm() {
     this.registerForm = this.fb.group({
-      name: [
-        null,
+      password: [
+        '',
         Validators.compose([
           Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100), 
+          Validators.minLength(6),
+          Validators.maxLength(12),
+          Validators.pattern(/\d/),
         ]),
       ],
-      description: [
-        null,
+      newPassword: [
+        '',
         Validators.compose([
-          Validators.maxLength(200), 
-        ]),
-      ],
-      priority: [
-        null,
-        Validators.compose([
-          Validators.required
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(12),
+          Validators.pattern(/\d/),
         ]),
       ],
     });
@@ -86,13 +87,12 @@ export class CreateTaskDialogComponent implements OnInit, OnDestroy {
       return;
 
     this.registerFormFilled = {
-      name: this.f['name'].value,
-      description: this.f['description'].value,
-      priority: Number(this.f['priority'].value),
-      userId: this.userId
+      userId: this.user.Id,
+      password: this.f['password'].value,
+      newPassword: this.f['newPassword'].value
     };
-    
-    this.tasksService.create(this.registerFormFilled).subscribe((res) => {
+
+    this.userService.changePassword(this.registerFormFilled).subscribe((res) => {
       if(res.valid)
       {
         this.dialogRef.close(true);

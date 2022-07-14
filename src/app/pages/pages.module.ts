@@ -36,6 +36,12 @@ import { CreateTaskDialogComponent } from './tasks/create-task-dialog/create-tas
 import { EditTaskDialogComponent } from './tasks/edit-task-dialog/edit-task-dialog.component';
 import { DeleteTaskDialogComponent } from './tasks/delete-task-dialog/delete-task-dialog.component';
 import { UsersComponent } from './users/users.component';
+import { EditUserDialogComponent } from './users/edit-user-dialog/edit-user-dialog.component';
+import { CreateUserDialogComponent } from './users/create-user-dialog/create-user-dialog.component';
+import { DeleteUserDialogComponent } from './users/delete-user-dialog/delete-user-dialog.component';
+import { FooterComponent } from './footer/footer.component';
+import { FooterModule } from './footer/footer.module';
+import { ProfileDialogComponent } from './users/profile-dialog/profile-dialog.component';
 
 
 @NgModule({
@@ -46,7 +52,11 @@ import { UsersComponent } from './users/users.component';
     CreateTaskDialogComponent,
     EditTaskDialogComponent,
     DeleteTaskDialogComponent,
-    UsersComponent
+    UsersComponent,
+    EditUserDialogComponent,
+    CreateUserDialogComponent,
+    DeleteUserDialogComponent,
+    ProfileDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +68,7 @@ import { UsersComponent } from './users/users.component';
     MatIconModule,
     MatToolbarModule,
     MenuModule,
+    FooterModule,
     MatTableModule,
     MatFormFieldModule,
     MatListModule,

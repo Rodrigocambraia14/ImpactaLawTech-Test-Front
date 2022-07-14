@@ -10,6 +10,9 @@ import { merge, Observable } from 'rxjs';
 import { StoreService } from 'src/app/services/store.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { UserService } from 'src/app/services/user.service';
+import { CreateUserDialogComponent } from './create-user-dialog/create-user-dialog.component';
+import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dialog.component';
+import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
 
 
 @Component({
@@ -20,11 +23,14 @@ import { UserService } from 'src/app/services/user.service';
 export class UsersComponent implements OnInit {
   
   form: FormGroup = new FormGroup({
+    imageProfile: new FormControl(true),
     name: new FormControl(true),
-    description: new FormControl(true),
+    userName: new FormControl(true),
+    email: new FormControl(true),
     status: new FormControl(true),
-    priority: new FormControl(true),
     createdDate: new FormControl(true),
+    lastLogin: new FormControl(true),
+    tasks: new FormControl(true),
     actions: new FormControl(true),
   });
   user: any;
@@ -33,11 +39,14 @@ export class UsersComponent implements OnInit {
     return this.form.controls;
   }
   columnDefinitions = [
+    { def: 'imageProfile', label: 'Avatar', hide: !this.f['imageProfile'].value },
     { def: 'name', label: 'Nome', hide: !this.f['name'].value },
-    { def: 'description', label: 'Descrição', hide: !this.f['description'].value },
+    { def: 'userName', label: 'Usuário', hide: !this.f['userName'].value },
+    { def: 'email', label: 'Email', hide: !this.f['email'].value },
     { def: 'status', label: 'Status', hide: !this.f['status'].value },
-    { def: 'priority', label: 'Prioridade', hide: !this.f['priority'].value },
     { def: 'createdDate', label: 'Data de criação', hide: !this.f['createdDate'].value },
+    { def: 'lastLogin', label: 'Último acesso', hide: !this.f['lastLogin'].value },
+    { def: 'tasks', label: 'Tarefas criadas', hide: !this.f['tasks'].value },
     { def: 'actions', label: 'Ações', hide: !this.f['actions'].value },
   ];
   
@@ -69,7 +78,7 @@ export class UsersComponent implements OnInit {
     this.storeService.getAuth().subscribe((auth) => {
       this.user = auth.user;
 
-      if(this.user.roleName != "Admin")
+      if(this.user.RoleName != "Admin")
       {
         this.toastService.error('Acesso negado');
         this.router.navigateByUrl('/home');
@@ -94,41 +103,41 @@ export class UsersComponent implements OnInit {
   }
 
   openCreateDialog(){
-  // const dialogRef = this.dialog.open(CreateTaskDialogComponent, {
-  //     height: '450px',
-  //     width: '600px',
-  //   });
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     if (result == true) {
-  //       this.ngOnInit();
-  //     }
-  //   });
+  const dialogRef = this.dialog.open(CreateUserDialogComponent, {
+      height: '600px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == true) {
+        this.ngOnInit();
+      }
+    });
   }
 
   openEditDialog(data: any) {
-    // const dialogRef = this.dialog.open(EditTaskDialogComponent, {
-    //   height: '500px',
-    //   width: '600px',
-    //   data: data,
-    // });
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result == true) {
-    //     this.ngOnInit();
-    //   }
-    // });
+    const dialogRef = this.dialog.open(EditUserDialogComponent, {
+      height: '500px',
+      width: '600px',
+      data: data,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == true) {
+        this.ngOnInit();
+      }
+    });
   }
 
   openDeleteDialog(data:any) {
-    // const dialogRef = this.dialog.open(DeleteTaskDialogComponent, {
-    //   height: '450px',
-    //   width: '550px',
-    //   data: data,
-    // });
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result == true) {
-    //     this.ngOnInit();
-    //   }
-    // });
+    const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
+      height: '450px',
+      width: '550px',
+      data: data,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == true) {
+        this.ngOnInit();
+      }
+    });
   }
 
 refresh(){
@@ -148,6 +157,12 @@ setStatus(index: any)
     'Finalizada'
   ]
   return statusDefinitions[index - 1];
+}
+
+setName(name: string)
+{
+  let nameArray = name.split(" ");
+  return `${nameArray[0]} ${nameArray[nameArray.length - 1]}`;
 }
 
 }

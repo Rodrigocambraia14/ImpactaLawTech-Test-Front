@@ -1,0 +1,17 @@
+<div class="fab-container">
+    <div class="d-flex justify-content-center ">
+        <button class="mx-3" routerLink="/tasks"  mat-mini-fab color="primary" >
+            <mat-icon>task</mat-icon>
+        </button>
+        <button class="mx-3" routerLink="/home"  mat-mini-fab color="primary" >
+          <mat-icon>home</mat-icon>
+        </button>
+        <button  class="mx-3" (click)="openProfileDialog()"  mat-mini-fab color="primary" >
+            <mat-icon>manage_accounts</mat-icon>
+        </button>
+        <button *ngIf="user.RoleName == 'Admin'" routerLink="/users"  class="mx-3" mat-mini-fab color="primary" >
+            <mat-icon>person</mat-icon>
+        </button>
+      </div>
+</div>
+

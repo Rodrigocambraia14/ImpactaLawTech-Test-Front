@@ -110,7 +110,7 @@ export class EditTaskDialogComponent implements OnInit, OnDestroy {
       else 
       {
         this.dialogRef.close(false);
-        return this.toastService.error(res.message);
+        return this.toastService.error(res.data.errors);
       }
     })
     

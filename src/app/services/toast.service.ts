@@ -29,8 +29,24 @@ export class ToastService {
     this._snackBar.open('info', undefined, this.config);
   }
 
-  error(msg: string) {
+  error(msg: any) {
     this.config.panelClass = ['alert-error'];
-    this._snackBar.open(msg, undefined, this.config);
+    
+    if ( typeof msg == 'string')
+    {
+      this._snackBar.open(msg, undefined, this.config);
+    }
+    else 
+    {
+      msg.forEach(async (err: any) => {
+        this.config.duration = 1000;
+        
+        this._snackBar.open(err, undefined, this.config);
+        setTimeout(() => {
+  
+        }, 1000);
+    });
+    }
+    
   }
 }

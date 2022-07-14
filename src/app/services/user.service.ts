@@ -35,11 +35,26 @@ export class UserService extends ApiService{
       );
   }
 
-  delete(id: any): Observable<any> {
+  get(userId: any): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.http.put<any>(`${environment.apiUrl}/user/delete`, {
-      Id: id,
-    }).pipe(
+    return this.http.get<any>(
+      `${environment.apiUrl}/user/get?UserId=${userId}`,
+      ).pipe(
+        map((create: any) => {
+          return create;
+        }),
+        catchError((err) => {
+          console.error('err', err);
+          return of(undefined);
+        }),
+        finalize(() => this.isLoadingSubject.next(false))
+      );
+  }
+
+  delete(userId: any): Observable<any> {
+    this.isLoadingSubject.next(true);
+    return this.http.delete<any>(`${environment.apiUrl}/user/delete?UserId=${userId}`,)
+    .pipe(
       map((create: any) => {
         return create;
       }),
@@ -73,12 +88,10 @@ export class UserService extends ApiService{
   update(body: any): Observable<any> {
     this.isLoadingSubject.next(true);
     return this.http.put<any>(`${environment.apiUrl}/user/update`, {
-      Id: body.id,
+      UserId: body.userId,
       Name: body.name,
-      Description: body.description,
-      Priority: body.priority,
+      Email: body.email,
       Status: body.status,
-      UserId:  body.userId,
     }).pipe(
       map((create: any) => {
         return create;
@@ -89,5 +102,39 @@ export class UserService extends ApiService{
       }),
       finalize(() => this.isLoadingSubject.next(false))
     );;
+  }
+
+  changePassword(body: any): Observable<any> {
+    this.isLoadingSubject.next(true);
+    return this.http.put<any>(`${environment.apiUrl}/user/change-password`, {
+      UserId: body.userId,
+      Password: body.password,
+      NewPassword: body.newPassword
+    }).pipe(
+      map((create: any) => {
+        return create;
+      }),
+      catchError((err) => {
+        console.error('err', err);
+        return of(undefined);
+      }),
+      finalize(() => this.isLoadingSubject.next(false))
+    );;
+  }
+
+  checkStatus(userId: any): Observable<any> {
+    this.isLoadingSubject.next(true);
+    return this.http.get<any>(
+      `${environment.apiUrl}/user/check-status?UserId=${userId}`,
+      ).pipe(
+        map((create: any) => {
+          return create;
+        }),
+        catchError((err) => {
+          console.error('err', err);
+          return of(undefined);
+        }),
+        finalize(() => this.isLoadingSubject.next(false))
+      );
   }
 }

@@ -1,0 +1,81 @@
+<div class="card">
+    <div class="card-header border-0 pt-5">
+        <h1 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-4 mb-1 color-primary"
+            >Visão geral</span>
+        </h1>
+    </div>
+
+    <div class="card-body d-flex" >
+
+        <div *ngIf="user.RoleName == 'Admin'"class="d-flex w-100 justify-content-around">
+            <div class="task-container d-flex flex-column task-border rounded background-primary">
+                <span class="card-label fw-bolder fs-6 mb-1 text-light text-center">
+                    Tarefas
+                </span>
+              <div class="d-flex justify-content-around ">
+                <div class="d-flex flex-column text-light" >
+                    <span class="text-light fw-bold py-1">Total:</span>
+                    <span class="text-light fw-bold py-1">Prontas:</span>
+                    <span class="text-light fw-bold py-1">Em andamento:</span>
+                    <span class="text-light fw-bold py-1">Concluídas:</span>
+                    <span class="text-light fw-bold py-1">Excluídas:</span>
+                </div>
+                <div class="d-flex flex-column">
+                    <span class="text-light py-1">{{ tasks.length }}</span>
+                    <span class="text-light py-1">{{ readyTasks.length }}</span>
+                    <span class="text-light py-1"> {{ onGoingTasks.length }}</span>
+                    <span class="text-light py-1">{{ doneTasks.length }}</span>
+                    <span class="text-light py-1">{{ deletedTasks.length }}</span>
+                </div>
+              </div>
+                
+            </div>
+
+            <div class="user-container d-flex flex-column task-border rounded background-primary">
+                <span class="card-label fw-bolder fs-6 mb-1 text-light text-center">
+                    Usuários
+                </span>
+              <div class="d-flex justify-content-around mt-4">
+                <div class="d-flex flex-column text-light" >
+                    <span class="text-light fw-bold py-1">Total:</span>
+                    <span class="text-light fw-bold py-1">Ativos:</span>
+                    <span class="text-light fw-bold py-1">Bloqueados:</span>
+                </div>
+                <div class="d-flex flex-column">
+                    <span class="text-light py-1">{{ users.length }}</span>
+                    <span class="text-light py-1">{{ activeUsers.length }}</span>
+                    <span class="text-light py-1"> {{ blockedUsers.length }}</span>
+                </div>
+              </div>
+                
+            </div>
+        </div>
+
+        <div *ngIf="user.RoleName != 'Admin'" class="w-100 d-flex justify-content-center">
+            <div class="task-container d-flex flex-column task-border rounded background-primary">
+                <span class="card-label fw-bolder fs-6 mb-1 text-light text-center">
+                    Suas tarefas
+                </span>
+              <div class="d-flex justify-content-around ">
+                <div class="d-flex flex-column text-light" >
+                    <span class="text-light fw-bold py-1">Total:</span>
+                    <span class="text-light fw-bold py-1">Prontas:</span>
+                    <span class="text-light fw-bold py-1">Em andamento:</span>
+                    <span class="text-light fw-bold py-1">Concluídas:</span>
+                    <span class="text-light fw-bold py-1">Excluídas:</span>
+                </div>
+                <div class="d-flex flex-column">
+                    <span class="text-light py-1">{{ tasks.length }}</span>
+                    <span class="text-light py-1">{{ readyTasks.length }}</span>
+                    <span class="text-light py-1"> {{ onGoingTasks.length }}</span>
+                    <span class="text-light py-1">{{ doneTasks.length }}</span>
+                    <span class="text-light py-1">{{ deletedTasks.length }}</span>
+                </div>
+              </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+

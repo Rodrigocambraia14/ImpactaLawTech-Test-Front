@@ -8,7 +8,7 @@
     </div>
       <!--begin::Heading-->
       <div class="text-left mb-15">
-        <h1 class="text-gray-700 mb-3 fs-5 text-center">Editar tarefa</h1>
+        <h1 class="text-gray-700 mb-3 fs-5 text-center">Editar usuário</h1>
       </div>
       <!--end::Heading-->
   
@@ -39,7 +39,7 @@
             [ngTemplateOutlet]="formError"
             [ngTemplateOutletContext]="{
               validation: 'minlength',
-              message: 'Nome deve conter no mínimo 3 caracteres',
+              message: 'Nome deve conter no mínimo 2 caracteres',
               control: registerForm.controls['name']
             }"
           ></ng-container>
@@ -64,50 +64,36 @@
       </div>
 
       <div class="fv-row ">
-        <label class="form-label fs-8 text-dark mt-2">Descrição</label>
+        <label class="form-label fs-8 text-dark mt-2">Email</label>
         <input
           type="text"
           class="form-control form-control-lg form-control-solid input-default-size"
-          formControlName="description"
-          placeholder="Descrição da tarefa"
+          formControlName="email"
+          placeholder="example@gmail.com"
           autocomplete="on"
           [ngClass]="{
-            'is-invalid': registerForm.controls['description'].invalid && submitted,
-            'is-valid': registerForm.controls['description'].valid && (registerForm.controls['description'].dirty || registerForm.controls['description'].touched)
+            'is-invalid': registerForm.controls['email'].invalid && submitted,
+            'is-valid': registerForm.controls['email'].valid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)
           }"
         />
-          
+            <ng-container
+                *ngIf="!registerForm.controls['email'].hasError('required') && registerForm.controls['email'].hasError('minLength') "
+                [ngTemplateOutlet]="formError"
+                [ngTemplateOutletContext]="{
+                validation: 'minlength',
+                message: 'Email deve conter no mínimo 3 caracteres',
+                control: registerForm.controls['email']
+                }"
+            ></ng-container> 
           <ng-container
-            *ngIf="!registerForm.controls['description'].hasError('required') && registerForm.controls['description'].hasError('maxLength') "
+            *ngIf="!registerForm.controls['email'].hasError('required') && registerForm.controls['email'].hasError('maxLength') "
             [ngTemplateOutlet]="formError"
             [ngTemplateOutletContext]="{
               validation: 'maxlength',
-              message: 'Descrição deve conter no máximo 200 caracteres',
-              control: registerForm.controls['description']
+              message: 'Email deve conter no máximo 320 caracteres',
+              control: registerForm.controls['email']
             }"
           ></ng-container> 
-      </div>
-
-      <div class="fv-row mb-10 mt-10">
-        <label class="form-label fs-8 text-dark mt-2">Prioridade</label>
-        <select
-            aria-label="Floating label select example"
-            class="form-select form-control form-control-lg form-control-solid"
-            aria-label="Select example"
-            formControlName="priority"
-                >
-                  <option  value="1">Alta</option>
-                  <option  value="2">Média</option>
-                  <option  value="3">Baixa</option>
-        </select>
-          <ng-container
-            [ngTemplateOutlet]="formError"
-            [ngTemplateOutletContext]="{
-              validation: 'required',
-              message: 'Uma prioridade é obrigatória',
-              control: registerForm.controls['priority']
-            }"
-          ></ng-container>
       </div>
 
       <div class="fv-row mb-10 mt-10">
@@ -118,9 +104,8 @@
             aria-label="Select example"
             formControlName="status"
                 >
-                  <option  value="1">Pronta</option>
-                  <option  value="2">Em andamento</option>
-                  <option  value="3">Finalizada</option>
+                  <option  value="1">Ativo</option>
+                  <option  value="2">Bloqueado</option>
         </select>
       </div>
       

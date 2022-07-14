@@ -19,10 +19,10 @@ export class TasksService extends ApiService{
     this.isLoading$ = this.isLoadingSubject.asObservable();
   }
  
-  list(userId: any): Observable<any> {
+  list(userId?: any): Observable<any> {
     this.isLoadingSubject.next(true);
     return this.http.get<any>(
-      `${environment.apiUrl}/task/list?UserId=${userId}`,
+      `${environment.apiUrl}/task/${userId == null ? 'list' : ('list?UserId=' + userId)}`,
       ).pipe(
         map((create: any) => {
           return create;

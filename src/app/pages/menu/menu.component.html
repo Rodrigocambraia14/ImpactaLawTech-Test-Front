@@ -39,7 +39,7 @@
                      <span class="ms-3">Tarefas</span>
                 </a>
                 <a 
-                    *ngIf="user.roleName == 'Admin'"
+                    *ngIf="user.RoleName == 'Admin'"
                     (click)="menu.toggle()" 
                     mat-list-item routerLink="/users"
                     class="text-light item-hover">
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="d-flex">
-            <a mat-list-item class="text-light item-hover">
+            <a mat-list-item class="text-light item-hover" (click)="openProfileDialog()">
                 <mat-icon class="fs-3 icon">manage_accounts</mat-icon>
             </a>
             <a mat-list-item class="text-light item-hover" (click)="logout()">

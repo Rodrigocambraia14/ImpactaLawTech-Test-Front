@@ -1,23 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { StoreService } from 'src/app/services/store.service';
-import { Logout } from 'src/app/store/actions/auth.actions';
-import { AppState } from 'src/app/store/app.states';
 import { ProfileDialogComponent } from '../users/profile-dialog/profile-dialog.component';
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  selector: 'app-footer',
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.scss']
 })
-export class MenuComponent implements OnInit {
-user: any;
-  constructor(private store: Store<AppState>,
-              public dialog: MatDialog,
-              private router: Router,
-              private storeService: StoreService) { }
+export class FooterComponent implements OnInit {
+  user: any;
+
+  constructor(private storeService: StoreService,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.Initializer();
@@ -38,9 +33,5 @@ user: any;
        return;
       });
     }
-
-  logout() {
-    this.store.dispatch(new Logout());
-  }
 
 }
