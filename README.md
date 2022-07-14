@@ -12,6 +12,8 @@ Tecnologias usadas:
 - Store (action / effect / reduces )
 - Auth Guard
 
+- Sistema de login com sessão, controle de acesso e logout via status de Ativo / bloqueado controlado por Admin, gerenciamento de tarefas e usuários, alteração de senha, controle de acesso por Role ( Admin / Usuário ).
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.
 
 ## Development server
