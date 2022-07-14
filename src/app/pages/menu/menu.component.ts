@@ -16,7 +16,6 @@ export class MenuComponent implements OnInit {
 user: any;
   constructor(private store: Store<AppState>,
               public dialog: MatDialog,
-              private router: Router,
               private storeService: StoreService) { }
 
   ngOnInit(): void {

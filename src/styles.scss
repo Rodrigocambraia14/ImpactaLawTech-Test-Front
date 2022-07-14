@@ -4,6 +4,7 @@
 $success: #050646;
 $danger: #f53659;
 $secondary : #fe951c;
+$toastSuccess: rgb(39, 146, 56);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -62,7 +63,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .alert-success {
     padding: 20px !important;
-    background-color: $success!important;
+    background-color: $toastSuccess !important;
     color: white !important;
   }
 

@@ -17,9 +17,6 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
-  defaultAuth: any = {
-    email: localStorage.getItem(environment.rememberMe),
-  };
   registerForm: FormGroup | any;
   returnUrl: string | any;
   isLoading$: Observable<boolean>;
@@ -33,10 +30,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private authService: AuthenticationService,
     private toastService: ToastService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private storeService: StoreService,
-    private store: Store<AppState>
   ) {
     this.isLoading$ = this.authService.isLoading$!;
   }
@@ -52,7 +45,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   initForm() {
     this.registerForm = this.fb.group({
       username: [
-        this.defaultAuth.username,
+        null,
         Validators.compose([
           Validators.required,
           Validators.minLength(3),
@@ -85,7 +78,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
           Validators.maxLength(320),
         ]),
       ],
-      rememberMe: [false],
     });
   }
 

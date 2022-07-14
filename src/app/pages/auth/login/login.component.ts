@@ -17,9 +17,7 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  defaultAuth: any = {
-    email: localStorage.getItem(environment.rememberMe),
-  };
+  
   loginForm: FormGroup | any;
   returnUrl: string | any;
   isLoading$: Observable<boolean>;
@@ -52,7 +50,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   initForm() {
     this.loginForm = this.fb.group({
       username: [
-        this.defaultAuth.username,
+        null,
         Validators.compose([
           Validators.required,
           Validators.minLength(3),
@@ -67,8 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           Validators.maxLength(12),
           Validators.pattern(/\d/),
         ]),
-      ],
-      rememberMe: [false],
+      ]
     });
   }
 
