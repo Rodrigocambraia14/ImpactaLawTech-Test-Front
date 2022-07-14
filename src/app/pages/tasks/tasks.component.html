@@ -58,6 +58,11 @@
               'is-gray': item.createdDate === null}">{{ item.createdDate ?  (item.createdDate | date: 'dd/MM/yyyy') :  "-" }}</td>
           </ng-container>
 
+          <ng-container matColumnDef="finishTask">
+            <th mat-header-cell  *matHeaderCellDef class="color-primary text-center">Concluir tarefa</th>
+            <td class="text-center" mat-cell *matCellDef="let item" ><mat-checkbox [checked]="item.status == 3" (change)="updateStatus($event.checked, item)" ></mat-checkbox></td>
+          </ng-container>
+
           <!-- actions Column -->
           <ng-container matColumnDef="actions">
             <th mat-header-cell  *matHeaderCellDef class="color-primary text-center">Ações</th>

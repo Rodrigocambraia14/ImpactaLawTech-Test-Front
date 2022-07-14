@@ -146,6 +146,11 @@ refresh(){
       this.users = res.data;
       this.fullData = res.data;
       this.isLoading = false;
+
+      this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource.sort = this.sort;
+      this.dataSource.data = this.users;
+      this.dataSource.paginator = this.paginator;
   });
 }
 

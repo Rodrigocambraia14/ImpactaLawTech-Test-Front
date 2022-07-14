@@ -7,8 +7,10 @@ import { MatTableDataSource, MatTable } from '@angular/material/table';
 
 import { Router } from '@angular/router';
 import { merge, Observable } from 'rxjs';
+import { TaskStatus } from 'src/app/enumerators/enums.component';
 import { StoreService } from 'src/app/services/store.service';
 import { TasksService } from 'src/app/services/tasks.service';
+import { ToastService } from 'src/app/services/toast.service';
 import { CreateTaskDialogComponent } from './create-task-dialog/create-task-dialog.component';
 import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
 import { EditTaskDialogComponent } from './edit-task-dialog/edit-task-dialog.component';
@@ -27,6 +29,7 @@ export class TasksComponent implements OnInit {
     status: new FormControl(true),
     priority: new FormControl(true),
     createdDate: new FormControl(true),
+    finishTask: new FormControl(true),
     actions: new FormControl(true),
   });
   user: any;
@@ -40,6 +43,7 @@ export class TasksComponent implements OnInit {
     { def: 'status', label: 'Status', hide: !this.f['status'].value },
     { def: 'priority', label: 'Prioridade', hide: !this.f['priority'].value },
     { def: 'createdDate', label: 'Data de criação', hide: !this.f['createdDate'].value },
+    { def: 'finishTask', label: 'Concluir tarefa', hide: !this.f['finishTask'].value },
     { def: 'actions', label: 'Ações', hide: !this.f['actions'].value },
   ];
   
@@ -57,7 +61,8 @@ export class TasksComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private tasksService: TasksService,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private toastService: ToastService
   ) { }
 
 
@@ -131,17 +136,45 @@ refresh(){
       this.tasks = res.data;
       this.fullData = res.data;
       this.isLoading = false;
+
+      this.dataSource = new MatTableDataSource(this.tasks);
+      this.dataSource.sort = this.sort;
+      this.dataSource.data = this.tasks;
+      this.dataSource.paginator = this.paginator;
   });
 }
 
 setStatus(index: any)
 {
   let statusDefinitions = [
-    'Pronta',
+    'Pronta para início',
     'Em andamento',
     'Finalizada'
   ]
   return statusDefinitions[index - 1];
+}
+
+updateStatus(checked:any, item: any)
+{
+  const request = {
+    id: item.id,
+    name: item.name,
+    description: item.description,
+    priority: Number(item.priority),
+    status: checked ? TaskStatus.Done : TaskStatus.Ready,
+    userId: this.user.Id
+  };
+  
+  this.tasksService.update(request).subscribe((res) => {
+    if(res.valid)
+    {
+      this.refresh();
+    }
+    else 
+    {
+      return this.toastService.error(res.data.errors);
+    }
+  })
 }
 
 }
