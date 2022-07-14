@@ -1,5 +1,17 @@
 # LawTechFront
 
+Tecnologias usadas:
+
+- Angular 14
+- HTML 5
+- SCSS
+- Typescript
+- Bootstrap 5
+- Angular Material
+- Ngx Loader
+- Store (action / effect / reduces )
+- Auth Guard
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.
 
 ## Development server
